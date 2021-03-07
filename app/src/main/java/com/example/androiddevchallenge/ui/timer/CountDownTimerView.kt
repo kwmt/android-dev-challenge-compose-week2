@@ -9,6 +9,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.unit.sp
 import com.example.androiddevchallenge.TimerViewModel
+import java.time.LocalTime
+import java.util.concurrent.TimeUnit
+import kotlin.time.minutes
 
 @Composable
 fun CountDownTimerView(viewModel: TimerViewModel) {
@@ -19,10 +22,19 @@ fun CountDownTimerView(viewModel: TimerViewModel) {
     }
 */
     Crossfade(targetState = currentTime) {
+//        LocalTime.of()
+
         Text(
-            text = it.toString(),
+            text = it.fromMinutesToHHmm(),
             fontSize = 32.sp
         )
 
     }
+}
+
+
+private fun Int.fromMinutesToHHmm(): String {
+    val hours = TimeUnit.MINUTES.toHours(toLong())
+    val remainMinutes = this - TimeUnit.HOURS.toMinutes(hours)
+    return String.format("%02d:%02d", hours, remainMinutes)
 }
