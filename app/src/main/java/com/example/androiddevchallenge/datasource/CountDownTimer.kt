@@ -1,4 +1,4 @@
-package com.example.androiddevchallenge.ui.timer
+package com.example.androiddevchallenge.datasource
 
 import android.util.Log
 import kotlinx.coroutines.CoroutineDispatcher
@@ -16,23 +16,24 @@ class CountDownTimer(
 ) {
     var startTime: Long = 10 * SECOND
 
-    val startTimeSecond: Long
-        get() = startTime / SECOND
+    val startTimeSecond: Int
+        get() = (startTime / SECOND).toInt()
     private var job: Job? = null
 
-    fun start(updateTimer: (Long) -> Unit, onCompleted: () -> Unit) {
+    fun start(updateTimer: (Int) -> Unit, onCompleted: () -> Unit) {
 
         job = coroutineScope.launch(
              dispatcher
         ) {
             val result = withTimeoutOrNull(startTime + OFFSET) {
-                var i = startTime / SECOND
+                var i = (startTime / SECOND).toInt()
 
                 repeat((startTime / SECOND).toInt()) {
+                    delay(SECOND)
                     val update = --i
                     updateTimer(update)
                     Log.d("tag", "I'm sleeping  $update")
-                    delay(SECOND)
+
                 }
                 "Done"
             }

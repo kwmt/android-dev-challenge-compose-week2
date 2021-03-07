@@ -3,7 +3,7 @@ package com.example.androiddevchallenge
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androiddevchallenge.ui.timer.CountDownTimer
+import com.example.androiddevchallenge.datasource.CountDownTimer
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.math.PI
@@ -12,8 +12,8 @@ class TimerViewModel : ViewModel() {
     private val timer: CountDownTimer = CountDownTimer(coroutineScope = viewModelScope)
     private val _timerState = MutableStateFlow(TimerState.Stop)
     val timerState: StateFlow<TimerState> = _timerState
-    private val _currentTime = MutableStateFlow<Long>(timer.startTimeSecond)
-    val currentTime: StateFlow<Long> = _currentTime
+    private val _currentTime = MutableStateFlow<Int>(timer.startTimeSecond)
+    val currentTime: StateFlow<Int> = _currentTime
     private val _currentAngleDegree =
         MutableStateFlow(currentAngleDegree(_currentTime.value))
     val currentAngleDegree: StateFlow<Double> = _currentAngleDegree
@@ -29,6 +29,8 @@ class TimerViewModel : ViewModel() {
             _currentAngleDegree.value = angle
             _currentTime.value = currentTime
         }) {
+            val angle = currentAngleDegree(timer.startTimeSecond)
+            _currentAngleDegree.value = angle
             _currentTime.value = timer.startTimeSecond
             _timerState.value = TimerState.Stop
         }
@@ -42,7 +44,7 @@ class TimerViewModel : ViewModel() {
         timer.reset()
     }
 
-    private fun currentAngleDegree(currentTime: Long): Double {
+    private fun currentAngleDegree(currentTime: Int): Double {
         return Math.toDegrees(((currentTime.toDouble() / timer.startTimeSecond.toDouble()) * 2 * PI))
     }
 }

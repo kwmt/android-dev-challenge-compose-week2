@@ -24,7 +24,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.androiddevchallenge.ui.theme.MyTheme
-import com.example.androiddevchallenge.ui.timer.CountDownCircle
+import com.example.androiddevchallenge.ui.timer.TimerScreen
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: TimerViewModel by viewModels()
@@ -62,7 +62,3 @@ fun DarkPreview() {
     }
 }
 
-@Composable
-fun TimerScreen(viewModel: TimerViewModel) {
-    CountDownCircle(viewModel)
-}
