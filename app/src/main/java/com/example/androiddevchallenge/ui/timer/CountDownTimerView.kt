@@ -1,17 +1,16 @@
 package com.example.androiddevchallenge.ui.timer
 
 import androidx.compose.animation.Crossfade
-import androidx.compose.animation.core.animateInt
-import androidx.compose.animation.core.updateTransition
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import com.example.androiddevchallenge.TimerViewModel
-import java.time.LocalTime
 import java.util.concurrent.TimeUnit
-import kotlin.time.minutes
 
 @Composable
 fun CountDownTimerView(viewModel: TimerViewModel) {
@@ -23,15 +22,12 @@ fun CountDownTimerView(viewModel: TimerViewModel) {
 */
     Crossfade(targetState = currentTime) {
 //        LocalTime.of()
-
         Text(
             text = it.fromMinutesToHHmm(),
             fontSize = 32.sp
         )
-
     }
 }
-
 
 private fun Int.fromMinutesToHHmm(): String {
     val hours = TimeUnit.MINUTES.toHours(toLong())
