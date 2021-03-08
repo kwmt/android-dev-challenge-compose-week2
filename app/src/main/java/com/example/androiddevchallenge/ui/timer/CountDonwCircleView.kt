@@ -6,12 +6,10 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -22,8 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.TimerState
 import com.example.androiddevchallenge.TimerViewModel
@@ -36,8 +34,7 @@ object CountDownCircle {
 }
 
 @Composable
-fun CountDownCircle(viewModel: TimerViewModel, content: @Composable ColumnScope.() -> Unit) {
-    val timerState by viewModel.timerState.collectAsState()
+fun CountDownCircle(viewModel: TimerViewModel, modifier: Modifier, circleSize: Dp) {
     val currentAngleDegree by viewModel.currentAngleDegree.collectAsState()
     val transition = updateTransition(targetState = currentAngleDegree)
     val degree by transition.animateFloat(
@@ -48,43 +45,62 @@ fun CountDownCircle(viewModel: TimerViewModel, content: @Composable ColumnScope.
         currentAngleDegree.toFloat()
     }
     Column {
-        BoxWithConstraints {
-            val boxWidth = with(LocalDensity.current) { constraints.maxWidth.toDp() }
-            val boxHeight = with(LocalDensity.current) { constraints.maxHeight.toDp() / 2 }
-            Canvas(modifier = Modifier
-                .size(boxWidth, boxWidth)
-                .padding(Padding)
-                .fillMaxWidth(), onDraw = {
-                drawArc(
-                    Color.Red,
-                    -90f,
-                    degree,
-                    useCenter = false,
-                    size = Size(
-                        (boxWidth - Padding * 2).toPx(),
-                        (boxWidth - Padding * 2).toPx()
-                    ),
+        Canvas(modifier = modifier
+            .padding(Padding)
+            .fillMaxWidth(), onDraw = {
+            drawArc(
+                Color.Red,
+                -90f,
+                degree,
+                useCenter = false,
+                size = Size(
+                    circleSize.toPx(),
+                    circleSize.toPx()
+                ),
 //            topLeft = Offset(60f, 60f),
-                    style = Stroke(10f),
-                )
-            })
+                style = Stroke(10f),
+            )
+        })
+    }
+}
 
-            Column(
-                modifier = Modifier.size(boxWidth, boxWidth),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                ColumnScope.content()
-            }
+@Preview
+@Composable
+fun PreviewMyCircle() {
+//    CountDownCircle()
+}
+
+@Composable
+fun ButtonsView(viewModel: TimerViewModel, modifier: Modifier = Modifier) {
+    val timerState by viewModel.timerState.collectAsState()
+
+    Row(
+        modifier = modifier.fillMaxWidth().padding(start = Padding, end = Padding, top = 8.dp, bottom = 8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Button(
+            onClick = {
+                when (timerState) {
+                    TimerState.Start -> viewModel.reset()
+                    TimerState.Stop -> viewModel.start()
+                }
+            }) {
+            Text(
+                when (timerState) {
+                    TimerState.Start -> "ストップ"
+                    TimerState.Stop -> "キャンセル"
+                }
+            )
         }
 
+        Button(
 
-        Button(onClick = {
-            when (timerState) {
-                TimerState.Start -> viewModel.reset()
-                TimerState.Stop -> viewModel.start()
-            }
-        }) {
+            onClick = {
+                when (timerState) {
+                    TimerState.Start -> viewModel.reset()
+                    TimerState.Stop -> viewModel.start()
+                }
+            }) {
             Text(
                 when (timerState) {
                     TimerState.Start -> "ストップ"
@@ -93,10 +109,4 @@ fun CountDownCircle(viewModel: TimerViewModel, content: @Composable ColumnScope.
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewMyCircle() {
-//    CountDownCircle()
 }
