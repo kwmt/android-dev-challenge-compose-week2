@@ -15,6 +15,7 @@
  */
 package com.example.androiddevchallenge.ui.timer
 
+import android.text.format.DateUtils
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -44,7 +45,7 @@ fun CountDownTimerView(viewModel: TimerViewModel, modifier: Modifier) {
         Crossfade(targetState = currentTime, modifier = Modifier.align(Alignment.Center)) {
             Column {
                 Text(
-                    text = it.fromMinutesToHHmm(),
+                    text = it.formatDuration(),
                     fontSize = 96.sp,
 //                    fontFamily = FontFamily.Serif
                 )
@@ -59,6 +60,11 @@ private fun Int.fromMinutesToHHmm(): String {
     return String.format("%02d:%02d", hours, remainMinutes)
 }
 
+fun Int.formatDuration(): String = if (this < 60) {
+    fromMinutesToHHmm()
+} else {
+    DateUtils.formatElapsedTime(this.toLong())
+}
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun LightPreviewCountDownTimerView() {
