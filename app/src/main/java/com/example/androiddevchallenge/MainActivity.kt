@@ -23,13 +23,16 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.view.WindowCompat
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.example.androiddevchallenge.ui.timer.TimerScreen
+import dev.chrisbanes.accompanist.insets.ProvideWindowInsets
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: TimerViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
             MyTheme {
@@ -42,8 +45,10 @@ class MainActivity : AppCompatActivity() {
 // Start building your app here!
 @Composable
 fun MyApp(viewModel: TimerViewModel) {
-    Surface(color = MaterialTheme.colors.background) {
-        TimerScreen(viewModel)
+    ProvideWindowInsets {
+        Surface(color = MaterialTheme.colors.background) {
+            TimerScreen(viewModel)
+        }
     }
 }
 
