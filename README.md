@@ -1,22 +1,27 @@
-# Put title of your app here
+# iPh0ne-ish Timer
 
 <!--- Replace <OWNER> with your Github Username and <REPOSITORY> with the name of your repository. -->
 <!--- You can find both of these in the url bar when you open your repository in github. -->
-![Workflow result](https://github.com/<OWNER>/<REPOSITORY>/workflows/Check/badge.svg)
+![Workflow result](https://github.com/kwmt/android-dev-challenge-compose-week2/workflows/Check/badge.svg)
 
 
 ## :scroll: Description
 <!--- Describe your app in one or two sentences -->
+This app is to set timer.
 
 
 ## :bulb: Motivation and Context
 <!--- Optionally point readers to interesting parts of your submission. -->
 <!--- What are you especially proud of? -->
+I used iPhone timer design as motivation:
 
+<img src="https://user-images.githubusercontent.com/1450486/110498901-13ca2300-813b-11eb-8396-00df85c0e4d0.jpeg" width="300" />
 
 ## :camera_flash: Screenshots
 <!-- You can add more screenshots here if you like -->
 <img src="/results/screenshot_1.png" width="260">&emsp;<img src="/results/screenshot_2.png" width="260">
+
+<img src="/results/screenshot_3.png" width="260">
 
 ## License
 ```
