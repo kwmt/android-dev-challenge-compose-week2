@@ -34,7 +34,14 @@ fun ButtonsView(viewModel: TimerViewModel, modifier: Modifier = Modifier) {
     val timerState by viewModel.timerState.collectAsState()
 
     Row(
-        modifier = modifier.fillMaxWidth().padding(start = CountDownCircle.Padding, end = CountDownCircle.Padding, top = 8.dp, bottom = 8.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(
+                start = CountDownCircle.Padding,
+                end = CountDownCircle.Padding,
+                top = 8.dp,
+                bottom = 8.dp
+            ),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Button(
@@ -47,12 +54,10 @@ fun ButtonsView(viewModel: TimerViewModel, modifier: Modifier = Modifier) {
         ) {
             Text(
                 "キャンセル"
-
             )
         }
 
         Button(
-
             onClick = {
                 when (timerState) {
                     TimerState.Start -> viewModel.reset()
