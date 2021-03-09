@@ -85,7 +85,6 @@ fun ButtonsView(viewModel: TimerViewModel, modifier: Modifier = Modifier) {
             }
         }
 
-
         StyledButton(
             when (timerState) {
                 TimerState.Start -> stringResource(id = R.string.pause)
@@ -117,12 +116,12 @@ fun StyledButton(
     circleSize: Dp = 90.dp,
     onClick: () -> Unit
 ) {
-    Box(modifier = modifier.size(circleSize, circleSize))
-    {
-        Canvas(modifier = modifier
-            .fillMaxSize()
-            .clip(CircleShape)
-            .clickable(onClick = onClick),
+    Box(modifier = modifier.size(circleSize, circleSize)) {
+        Canvas(
+            modifier = modifier
+                .fillMaxSize()
+                .clip(CircleShape)
+                .clickable(onClick = onClick),
             onDraw = {
                 drawCircle(
                     color = backgroundColor,
@@ -136,7 +135,8 @@ fun StyledButton(
                     radius = (size.minDimension / 2) - 15f,
                     style = Fill
                 )
-            })
+            }
+        )
         Text(
             modifier = Modifier.align(Alignment.Center),
             text = text,
