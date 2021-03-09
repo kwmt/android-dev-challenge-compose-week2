@@ -64,8 +64,6 @@ fun ButtonsView(viewModel: TimerViewModel, modifier: Modifier = Modifier) {
             .padding(
                 start = CountDownCircle.Padding,
                 end = CountDownCircle.Padding,
-                top = 8.dp,
-                bottom = 8.dp
             ),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
