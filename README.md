@@ -15,7 +15,7 @@ This app is to set timer.
 <!--- What are you especially proud of? -->
 I used iPhone timer design as motivation:
 
-<img src="https://user-images.githubusercontent.com/1450486/110498901-13ca2300-813b-11eb-8396-00df85c0e4d0.jpeg" width="300" /> <img src="https://user-images.githubusercontent.com/1450486/110502843-ea12fb00-813e-11eb-8a45-317ac567803f.jpeg" width="300" />
+<img src="https://user-images.githubusercontent.com/1450486/110498901-13ca2300-813b-11eb-8396-00df85c0e4d0.jpeg" width="260" />&emsp;<img src="https://user-images.githubusercontent.com/1450486/110502843-ea12fb00-813e-11eb-8a45-317ac567803f.jpeg" width="260" />
 
 
 
