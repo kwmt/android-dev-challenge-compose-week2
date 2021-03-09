@@ -27,9 +27,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.TimerViewModel
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.example.androiddevchallenge.ui.timer.TimerSetObject.INITIAL_SECOND
@@ -64,7 +66,7 @@ fun TimerSetView(viewModel: TimerViewModel, modifier: Modifier = Modifier) {
                         }
                     }
                 })
-                Text("時間")
+                Text(stringResource(id = R.string.hours))
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 AndroidView({ context ->
@@ -78,7 +80,7 @@ fun TimerSetView(viewModel: TimerViewModel, modifier: Modifier = Modifier) {
                         }
                     }
                 })
-                Text("分")
+                Text(stringResource(id = R.string.minute))
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 AndroidView({ context ->
@@ -93,7 +95,7 @@ fun TimerSetView(viewModel: TimerViewModel, modifier: Modifier = Modifier) {
                         this.value = INITIAL_SECOND
                     }
                 })
-                Text("秒")
+                Text(stringResource(id = R.string.second))
             }
         }
     }

@@ -25,7 +25,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.TimerState
 import com.example.androiddevchallenge.TimerViewModel
 
@@ -53,7 +55,7 @@ fun ButtonsView(viewModel: TimerViewModel, modifier: Modifier = Modifier) {
             }
         ) {
             Text(
-                "キャンセル"
+                stringResource(id = R.string.cancel)
             )
         }
 
@@ -67,8 +69,8 @@ fun ButtonsView(viewModel: TimerViewModel, modifier: Modifier = Modifier) {
         ) {
             Text(
                 when (timerState) {
-                    TimerState.Start -> "ストップ"
-                    TimerState.Stop -> "開始"
+                    TimerState.Start -> stringResource(id = R.string.pause)
+                    TimerState.Stop -> stringResource(id = R.string.start)
                 }
             )
         }
