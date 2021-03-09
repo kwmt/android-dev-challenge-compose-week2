@@ -24,14 +24,14 @@ import kotlinx.coroutines.flow.StateFlow
 import org.threeten.bp.LocalTime
 import kotlin.math.PI
 
-class TimerViewModel : ViewModel() {
+class TimerViewModel(startTime: Int = 0) : ViewModel() {
     private var countDownTimer: TimerViewState.CountDownTimer? = null
     var minutes: Int = 0
     var seconds: Int = 0
     private val timer: CountDownTimer = CountDownTimer(coroutineScope = viewModelScope)
     private val _timerState = MutableStateFlow(TimerState.Stop)
     val timerState: StateFlow<TimerState> = _timerState
-    private val _currentTime = MutableStateFlow<Int>(0)
+    private val _currentTime = MutableStateFlow<Int>(startTime)
     val currentTime: StateFlow<Int> = _currentTime
     private val _currentAngleDegree = MutableStateFlow(currentAngleDegree(_currentTime.value))
     val currentAngleDegree: StateFlow<Double> = _currentAngleDegree

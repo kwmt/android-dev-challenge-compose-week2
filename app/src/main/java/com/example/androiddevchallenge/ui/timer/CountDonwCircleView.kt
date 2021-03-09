@@ -24,6 +24,8 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -37,6 +39,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.TimerViewModel
 import com.example.androiddevchallenge.datasource.CountDownTimer.Companion.SECOND
+import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.example.androiddevchallenge.ui.timer.CountDownCircle.Padding
 import com.example.androiddevchallenge.ui.timer.CountDownCircle.STROKE
 
@@ -89,8 +92,22 @@ fun CountDownCircle(viewModel: TimerViewModel, modifier: Modifier, circleSize: D
     }
 }
 
-@Preview
+@Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
-fun PreviewMyCircle() {
-//    CountDownCircle()
+fun LightPreviewCountDownCircle() {
+    MyTheme {
+        Surface(color = MaterialTheme.colors.background) {
+            CountDownCircle(TimerViewModel(10), Modifier, 320.dp)
+        }
+    }
+}
+
+@Preview("Dark Theme", widthDp = 360, heightDp = 640)
+@Composable
+fun DarkPreviewCountDownCircle() {
+    MyTheme(darkTheme = true) {
+        Surface(color = MaterialTheme.colors.background) {
+            CountDownCircle(TimerViewModel(10), Modifier, 320.dp)
+        }
+    }
 }
