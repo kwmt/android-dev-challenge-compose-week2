@@ -11,11 +11,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.androiddevchallenge.TimerViewModel
+import com.example.androiddevchallenge.ui.timer.TimerSetObject.INITIAL_SECOND
+
+object TimerSetObject {
+    const val INITIAL_SECOND = 10
+}
 
 @Composable
 fun TimerSetView(viewModel: TimerViewModel, modifier: Modifier = Modifier) {
     viewModel.clearTime()
-
+    viewModel.seconds = INITIAL_SECOND
     Box(
         modifier = modifier
     ) {
@@ -45,6 +50,7 @@ fun TimerSetView(viewModel: TimerViewModel, modifier: Modifier = Modifier) {
                         Log.d("tag", "$oldVal -> $newVal")
                         viewModel.seconds = newVal
                     }
+                    this.value = INITIAL_SECOND
                 }
             })
             Text("秒")

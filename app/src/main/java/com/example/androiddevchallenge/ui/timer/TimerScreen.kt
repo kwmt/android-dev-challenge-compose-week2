@@ -16,7 +16,7 @@ import com.example.androiddevchallenge.ui.timer.CountDownCircle.Padding
 
 @Composable
 fun TimerScreen(viewModel: TimerViewModel) {
-    val timerViewState by viewModel.timerViewState.collectAsState()
+    val timerViewState by viewModel.timerScreenViewState.collectAsState()
     Column {
         BoxWithConstraints {
             val boxWidth = with(LocalDensity.current) { constraints.maxWidth.toDp() }

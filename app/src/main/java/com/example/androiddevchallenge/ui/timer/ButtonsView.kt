@@ -30,10 +30,8 @@ fun ButtonsView(viewModel: TimerViewModel, modifier: Modifier = Modifier) {
                 }
             }) {
             Text(
-                when (timerState) {
-                    TimerState.Start -> "ストップ"
-                    TimerState.Stop -> "キャンセル"
-                }
+                "キャンセル"
+
             )
         }
 

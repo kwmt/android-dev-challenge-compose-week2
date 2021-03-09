@@ -9,23 +9,19 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
-import org.threeten.bp.LocalTime
 
 class CountDownTimer(
     private val coroutineScope: CoroutineScope = GlobalScope,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) {
     var startTime: Long = 10 * SECOND
-
     val startTimeSecond: Int
         get() = (startTime / SECOND).toInt()
     private var job: Job? = null
-
     fun start(time: Int, updateTimer: (Int) -> Unit, onCompleted: () -> Unit) {
-        this.startTime  = time.toLong() * SECOND
-        Log.d("tag", "$startTime")
+        this.startTime = time.toLong() * SECOND
         job = coroutineScope.launch(
-             dispatcher
+            dispatcher
         ) {
             val result = withTimeoutOrNull(startTime + OFFSET) {
                 var i = (startTime / SECOND).toInt()
@@ -34,8 +30,6 @@ class CountDownTimer(
                     delay(SECOND)
                     val update = --i
                     updateTimer(update)
-                    Log.d("tag", "I'm sleeping  $update")
-
                 }
                 "Done"
             }

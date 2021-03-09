@@ -10,39 +10,42 @@ import org.threeten.bp.LocalTime
 import kotlin.math.PI
 
 class TimerViewModel : ViewModel() {
+    private var countDownTimer: TimerViewState.CountDownTimer? = null
     var minutes: Int = 0
     var seconds: Int = 0
     private val timer: CountDownTimer = CountDownTimer(coroutineScope = viewModelScope)
     private val _timerState = MutableStateFlow(TimerState.Stop)
     val timerState: StateFlow<TimerState> = _timerState
-    private val _currentTime = MutableStateFlow<Int>(timer.startTimeSecond)
+    private val _currentTime = MutableStateFlow<Int>(0)
     val currentTime: StateFlow<Int> = _currentTime
-    private val _currentAngleDegree =
-        MutableStateFlow(currentAngleDegree(_currentTime.value))
+    private val _currentAngleDegree = MutableStateFlow(currentAngleDegree(_currentTime.value))
     val currentAngleDegree: StateFlow<Double> = _currentAngleDegree
-    private val _timerViewState = MutableStateFlow<TimerViewState>(TimerViewState.TimerSet)
-    val timerViewState: StateFlow<TimerViewState> = _timerViewState
+    private val _timerScreenViewState = MutableStateFlow<TimerViewState>(TimerViewState.TimerSet)
+    val timerScreenViewState: StateFlow<TimerViewState> = _timerScreenViewState
 
     /**
      * start
      */
     fun start() {
-        val c = TimerViewState.CountDownTimer(0, minutes, seconds)
-        _timerViewState.value = c
+        val countDownTimer = TimerViewState.CountDownTimer(0, minutes, seconds)
+        this.countDownTimer = countDownTimer
+        _timerScreenViewState.value = countDownTimer
         _timerState.value = TimerState.Start
+        _currentAngleDegree.value = currentAngleDegree(countDownTimer.time )
+        _currentTime.value = countDownTimer.time
         timer.start(
-            time = c.time,
+            time = countDownTimer.time,
             updateTimer = { currentTime ->
-            val angle = currentAngleDegree(currentTime)
-            Log.d("tag", "angle = $angle $currentTime, ${timer.startTimeSecond}")
-            _currentAngleDegree.value = angle
-            _currentTime.value = currentTime
-        }) {
-            val angle = currentAngleDegree(timer.startTimeSecond)
+                val angle = currentAngleDegree(currentTime - 1)
+                Log.d("tag", "angle = $angle $currentTime, ${timer.startTimeSecond}")
+                _currentAngleDegree.value = angle
+                _currentTime.value = currentTime
+            }) {
+            _timerState.value = TimerState.Stop
+            _timerScreenViewState.value = TimerViewState.TimerSet
+            val angle = currentAngleDegree(0)
             _currentAngleDegree.value = angle
             _currentTime.value = timer.startTimeSecond
-            _timerState.value = TimerState.Stop
-            _timerViewState.value = TimerViewState.TimerSet
         }
     }
 
@@ -51,7 +54,7 @@ class TimerViewModel : ViewModel() {
      */
     fun reset() {
         _timerState.value = TimerState.Stop
-        _timerViewState.value = TimerViewState.TimerSet
+        _timerScreenViewState.value = TimerViewState.TimerSet
         timer.reset()
     }
 
@@ -61,6 +64,7 @@ class TimerViewModel : ViewModel() {
     }
 
     private fun currentAngleDegree(currentTime: Int): Double {
+        // 現在の時間 / 開始時間 = 求めたい角度 / 2π
         return Math.toDegrees(((currentTime.toDouble() / timer.startTimeSecond.toDouble()) * 2 * PI))
     }
 }
