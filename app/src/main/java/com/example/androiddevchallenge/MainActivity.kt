@@ -33,9 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         setContent {
             MyTheme {
-                Surface(color = MaterialTheme.colors.background) {
-                    TimerScreen(viewModel)
-                }
+                MyApp(viewModel)
             }
         }
     }
@@ -43,14 +41,17 @@ class MainActivity : AppCompatActivity() {
 
 // Start building your app here!
 @Composable
-fun MyApp() {
+fun MyApp(viewModel: TimerViewModel) {
+    Surface(color = MaterialTheme.colors.background) {
+        TimerScreen(viewModel)
+    }
 }
 
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun LightPreview() {
     MyTheme {
-        MyApp()
+        MyApp(TimerViewModel())
     }
 }
 
@@ -58,6 +59,6 @@ fun LightPreview() {
 @Composable
 fun DarkPreview() {
     MyTheme(darkTheme = true) {
-        MyApp()
+        MyApp(TimerViewModel())
     }
 }
