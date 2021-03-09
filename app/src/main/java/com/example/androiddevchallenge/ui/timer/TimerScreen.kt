@@ -28,11 +28,12 @@ import androidx.compose.ui.platform.LocalDensity
 import com.example.androiddevchallenge.TimerViewModel
 import com.example.androiddevchallenge.TimerViewState
 import com.example.androiddevchallenge.ui.timer.CountDownCircle.Padding
+import dev.chrisbanes.accompanist.insets.statusBarsPadding
 
 @Composable
 fun TimerScreen(viewModel: TimerViewModel) {
     val timerViewState by viewModel.timerScreenViewState.collectAsState()
-    Column {
+    Column(modifier = Modifier.statusBarsPadding()) {
         BoxWithConstraints {
             val boxWidth = with(LocalDensity.current) { constraints.maxWidth.toDp() }
             val boxHeight = with(LocalDensity.current) { constraints.maxHeight.toDp() / 2 }
