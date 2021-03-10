@@ -15,7 +15,6 @@
  */
 package com.example.androiddevchallenge.ui.timer
 
-import android.graphics.pdf.PdfDocument
 import android.widget.Toast
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Box
