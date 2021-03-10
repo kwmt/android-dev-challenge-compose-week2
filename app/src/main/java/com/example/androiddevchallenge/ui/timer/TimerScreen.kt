@@ -15,6 +15,7 @@
  */
 package com.example.androiddevchallenge.ui.timer
 
+import android.widget.Toast
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -24,7 +25,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
+import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.TimerViewModel
 import com.example.androiddevchallenge.TimerViewState
 import com.example.androiddevchallenge.ui.timer.ButtonsView.CIRCLE_SIZE
@@ -34,6 +38,13 @@ import dev.chrisbanes.accompanist.insets.statusBarsPadding
 @Composable
 fun TimerScreen(viewModel: TimerViewModel) {
     val timerViewState by viewModel.timerScreenViewState.collectAsState()
+    val isCompleted by viewModel.isCompleted.collectAsState(initial = false)
+
+    if (isCompleted) {
+        Toast.makeText(LocalContext.current, stringResource(R.string.finsih), Toast.LENGTH_SHORT)
+            .show()
+    }
+
     BoxWithConstraints(modifier = Modifier.statusBarsPadding()) {
         val boxWidth = with(LocalDensity.current) { constraints.maxWidth.toDp() }
         val boxHeight = with(LocalDensity.current) { constraints.maxHeight.toDp() / 2 }

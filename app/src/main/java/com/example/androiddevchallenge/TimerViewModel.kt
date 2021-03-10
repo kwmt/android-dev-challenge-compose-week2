@@ -19,8 +19,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androiddevchallenge.datasource.CountDownTimer
+import com.example.androiddevchallenge.datasource.CountDownTimer.Companion.RESULT_DONE
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import org.threeten.bp.LocalTime
 import kotlin.math.PI
 
@@ -38,6 +41,9 @@ class TimerViewModel(startTime: Int = 0) : ViewModel() {
     val currentAngleDegree: StateFlow<Double> = _currentAngleDegree
     private val _timerScreenViewState = MutableStateFlow<TimerViewState>(TimerViewState.TimerSet)
     val timerScreenViewState: StateFlow<TimerViewState> = _timerScreenViewState
+
+    private var _result = MutableStateFlow<String?>(null)
+    val isCompleted: Flow<Boolean> = _result.map { it == RESULT_DONE }
 
     /**
      * start
@@ -57,7 +63,8 @@ class TimerViewModel(startTime: Int = 0) : ViewModel() {
                 _currentAngleDegree.value = angle
                 _currentTime.value = currentTime
             }
-        ) {
+        ) { result ->
+            this._result.value = result
             _timerState.value = TimerState.Stop
             _timerScreenViewState.value = TimerViewState.TimerSet
             val angle = currentAngleDegree(0)
