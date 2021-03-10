@@ -53,6 +53,11 @@ import com.example.androiddevchallenge.ui.theme.pauseBackgroundColor
 import com.example.androiddevchallenge.ui.theme.pauseTextColor
 import com.example.androiddevchallenge.ui.theme.startBackgroundColor
 import com.example.androiddevchallenge.ui.theme.startTextColor
+import com.example.androiddevchallenge.ui.timer.ButtonsView.CIRCLE_SIZE
+
+object ButtonsView {
+    val CIRCLE_SIZE = 90.dp
+}
 
 @Composable
 fun ButtonsView(viewModel: TimerViewModel, modifier: Modifier = Modifier) {
@@ -113,7 +118,7 @@ fun StyledButton(
     backgroundColor: Color,
     textColor: Color,
     modifier: Modifier = Modifier,
-    circleSize: Dp = 90.dp,
+    circleSize: Dp = CIRCLE_SIZE,
     onClick: () -> Unit
 ) {
     Box(modifier = modifier.size(circleSize, circleSize)) {
