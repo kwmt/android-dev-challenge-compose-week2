@@ -15,6 +15,7 @@
  */
 package com.example.androiddevchallenge.ui.timer
 
+import android.graphics.pdf.PdfDocument
 import android.widget.Toast
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Box
@@ -54,7 +55,7 @@ fun TimerScreen(viewModel: TimerViewModel) {
                 when (timerViewState) {
                     TimerViewState.TimerSet -> TimerSetView(viewModel, modifier)
                     is TimerViewState.CountDownTimer -> {
-                        CountDownTimerView(viewModel, modifier)
+                        CountDownTimerView(viewModel, modifier.offset(y = - (Padding * 2)))
                         CountDownCircle(viewModel, modifier, (boxWidth - Padding * 2))
                     }
                 }
