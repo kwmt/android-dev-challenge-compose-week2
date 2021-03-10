@@ -17,4 +17,5 @@
     <string name="hours">hours</string>
     <string name="minute">min</string>
     <string name="second">sec</string>
+    <string name="finsih">Finish</string>
 </resources>

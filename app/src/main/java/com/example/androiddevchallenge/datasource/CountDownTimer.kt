@@ -33,7 +33,7 @@ class CountDownTimer(
     val startTimeSecond: Int
         get() = (startTime / SECOND).toInt()
     private var job: Job? = null
-    fun start(time: Int, updateTimer: (Int) -> Unit, onCompleted: () -> Unit) {
+    fun start(time: Int, updateTimer: (Int) -> Unit, onCompleted: (String?) -> Unit) {
         this.startTime = time.toLong() * SECOND
         job = coroutineScope.launch(
             dispatcher
@@ -46,10 +46,10 @@ class CountDownTimer(
                     val update = --i
                     updateTimer(update)
                 }
-                "Done"
+                RESULT_DONE
             }
             Log.d("tag", "$result")
-            onCompleted()
+            onCompleted(result)
         }
     }
 
@@ -60,5 +60,6 @@ class CountDownTimer(
     companion object {
         private const val OFFSET: Long = 500
         const val SECOND: Long = 1000
+        const val RESULT_DONE = "Done"
     }
 }
